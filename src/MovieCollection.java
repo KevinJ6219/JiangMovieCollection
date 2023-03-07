@@ -269,18 +269,49 @@ public class MovieCollection {
     }
 
     private void listHighestRated() {
-       Movie[] top50 = new Movie[50];
-       ArrayList<Double> ratings = new ArrayList<Double>();
-       double max = Integer.MIN_VALUE;
-       for (int i = 0; i < movies.size(); i++) {
+      int count = 0;
+      for (int i = 0; i < movies.size() - 1; i++) {
+          int minIndex = i;
 
-       }
+          if (movies.get(i).getUserRating() > movies.get(minIndex).getUserRating()) {
+              minIndex = i;
+              count++;
+          }
 
+          Movie temp = movies.get(i);
+          movies.set(i, movies.get(minIndex));
+          movies.set(minIndex, temp);
+      }
 
+//      for (int i = 0; i < 50; i++) {
+//          System.out.println(i+1+". " + movies.get(i) + " Rating: " + movies.get(i).getUserRating());
+//      }
     }
+
 
     private void listHighestRevenue() {
 
+    }
+
+    private ArrayList<Movie> selectionSort(ArrayList<Movie> movies) {
+        ArrayList<Movie> topMovies = new ArrayList<Movie>();
+        for (int i = 0; i < movies.size(); i++) {
+            topMovies.add(movies.get(i));
+        }
+        for (int i = 0; i < topMovies.size() - 1; i++) {
+            int MaxIndex = i;
+            for (int j = i + 1; j < topMovies.size(); j++) {
+                if (topMovies.get(i).getUserRating() > topMovies.get(MaxIndex).getUserRating()) {
+                    MaxIndex = j;
+                }
+            }
+            if (i != MaxIndex) {
+                Movie temp = topMovies.get(i);
+                topMovies.set(i, topMovies.get(MaxIndex));
+                topMovies.set(MaxIndex, temp);
+            }
+        }
+        return topMovies;
     }
 
     private void importMovieList(String fileName) {
