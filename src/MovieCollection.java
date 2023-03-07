@@ -225,10 +225,57 @@ public class MovieCollection {
     }
 
     private void listGenres() {
-        
+        ArrayList<Movie> results = new ArrayList<Movie>();
+        ArrayList<String> genreList = new ArrayList<String>();
+        for (int i = 0; i < movies.size(); i++) {
+            String[] arr = movies.get(i).getGenres().split("\\|");
+            for (int j = 0; j < arr.length; j++) {
+                if (genreList.indexOf(arr[j]) == -1) {
+                    genreList.add(arr[j]);
+                }
+            }
+        }
+        Collections.sort(genreList);
+        for (int i = 0; i < genreList.size(); i++) {
+            System.out.println(i + 1 + ". " + genreList.get(i));
+        }
+
+        System.out.println("Choose a Genre");
+        System.out.print("Enter number: ");
+        int num = scanner.nextInt();
+
+        String cast = genreList.get(num-1).toLowerCase();
+        for (int i = 0; i < movies.size(); i++) {
+            if (movies.get(i).getGenres().toLowerCase().indexOf(cast) >= 0) {
+                results.add(movies.get(i));
+            }
+        }
+        sortResults(results);
+        for (int i = 0; i < results.size(); i++) {
+            System.out.println(i+1 + ". " + results.get(i));
+        }
+        System.out.println("Which movie would you like to learn more about?");
+        System.out.print("Enter number: ");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        Movie selectedMovie = results.get(choice - 1);
+
+        displayMovieInfo(selectedMovie);
+
+        System.out.println("\n ** Press Enter to Return to Main Menu **");
+        scanner.nextLine();
     }
 
     private void listHighestRated() {
+       Movie[] top50 = new Movie[50];
+       ArrayList<Double> ratings = new ArrayList<Double>();
+       double max = Integer.MIN_VALUE;
+       for (int i = 0; i < movies.size(); i++) {
+
+       }
+
 
     }
 
